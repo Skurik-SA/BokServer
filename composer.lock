@@ -2294,7 +2294,7 @@
         },
         {
             "name": "symfony/asset",
-            "version": "v4.4.16",
+            "version": "v4.4.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset.git",
@@ -2342,7 +2342,7 @@
             "description": "Symfony Asset Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/asset/tree/v4.4.16"
+                "source": "https://github.com/symfony/asset/tree/v4.4.17"
             },
             "funding": [
                 {
