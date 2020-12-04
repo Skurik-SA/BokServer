@@ -69,6 +69,26 @@ class ProductController extends AbstractController
 //    }
 
     /**
+     * @Route("/product/Greater", name="product_greater")
+     */
+
+    public function allGreat(): Response
+    {
+        $minprice = 3000;
+
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAllGreaterThanPrice($minprice);
+
+        echo '<pre>';
+        print_r($products);
+        echo '</pre>';
+
+        return new Response('All prices lower than 3000');
+    }
+
+
+    /**
      * @Route("/product/{id}", name="product_show")
      */
     public function show(Product $product): Response
@@ -132,4 +152,6 @@ class ProductController extends AbstractController
         );
 
     }
+
+
 }
