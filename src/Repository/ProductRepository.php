@@ -52,18 +52,56 @@ class ProductRepository extends ServiceEntityRepository
      * @return Product[]
      */
 
+//    public function findAllGreaterThanPrice(int $price): array
+//    {
+//        $entityManager = $this->getEntityManager();
+//
+//        $query = $entityManager->createQuery(
+//          '
+//            SELECT p FROM App\Entity\Product p
+//            WHERE p.price < :price
+//            ORDER BY p.price ASC
+//          '
+//        )->setParameter('price', $price);
+//
+//        return $query->getResult();
+//    }
+
+
+//    public function findAllGreaterThanPrice(int $price, bool $includeUnavailableProducts = false): array
+//    {
+//        // automatically knows to select Products
+//        // the "p" is an alias you'll use in the rest of the query
+//        $qb = $this->createQueryBuilder('p')
+//            ->where('p.price > :price')
+//            ->setParameter('price', $price)
+//            ->orderBy('p.price', 'ASC');
+//
+//        if (!$includeUnavailableProducts) {
+//            $qb->andWhere('p.available = TRUE');
+//        }
+//
+//        $query = $qb->getQuery();
+//
+//        return $query->execute();
+//
+//        // to get just one result:
+//        // $product = $query->setMaxResults(1)->getOneOrNullResult();
+//    }
+
     public function findAllGreaterThanPrice(int $price): array
     {
-        $entityManager = $this->getEntityManager();
+        $conn = $this->getEntityManager()->getConnection();
 
-        $query = $entityManager->createQuery(
-          '
-            SELECT p FROM App\Entity\Product p
+        $sql = '
+            SELECT * FROM product p
             WHERE p.price < :price
             ORDER BY p.price ASC
-          '
-        )->setParameter('price', $price);
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['price' => $price]);
 
-        return $query->getResult();
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
     }
 }
