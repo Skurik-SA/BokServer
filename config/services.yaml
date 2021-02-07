@@ -30,6 +30,10 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Command\:
+        resource: '../src/Command/'
+        tags: ['console.command']
+
     # mydatabase:
     # supported versions: 9.6, 10, 11, 12, 13
     # 9.3 is also available but not maintained upstream
